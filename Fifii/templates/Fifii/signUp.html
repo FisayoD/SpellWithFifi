@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Fifii/css/signUp.css' %}" rel="stylesheet" type="text/css">
+    <title>Spell with Fifi</title>
+</head>
+
+<body>
+    <div class="container">
+    <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
+    <form method="POST" action="{%url 'signUp'%}">
+        {% csrf_token %}
+        <input type="text" id="fname" placeholder="Username" name="username" class="text-box" required><br>
+        <input type="password" id="pass" placeholder="Password" name="password" class="text-box" minlength="8"
+            required><br>
+            <input type="email" id="email" placeholder="Email Address" name="email" class="text-box"><br>
+            <div class="button-block">
+        <input type="submit" name = "login" value="Sign Up" class="button">
+        </div>
+    </form>
+    </div>
+
+</body>
+
+</html>
+<!--
+    <input type="file" id="uploader"><br>
+-->

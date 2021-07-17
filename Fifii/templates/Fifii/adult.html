@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Fifii/css/adult.css' %}" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <title>Spell with Fifi</title>
+</head>
+
+<body>
+    <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
+    <a href="{%url 'logout'%}"><button class="logout"></button></a>
+    <div class="container">
+        <div class="sidebar">
+            <div class="bar-1 bar" onclick="showProgressReport()" id="bar-1">
+                    <img src="{% static 'Fifii/img/Chart icon.png' %}" alt="Image for progress report" class="side-img">
+                <h3 class="bar-text">Progress Report</h3>
+                </div>
+            <div class="bar-2 bar" onclick="showWordList()">
+                <img src="{% static 'Fifii/img/Word List Icon.png' %}" alt="Image for Word List" class="side-img">
+                <h3 class="bar-text">Set Quiz</h3>
+                </div>
+            <div class="bar-3 bar" onclick="showManageChild()">
+                <img src="{% static 'Fifii/img/add child icon.png' %}" alt="Image for Add Child" class="side-img">
+                <h3 class="bar-text">Child account</h3>
+                </div>
+        </div>
+        {{mg}}
+        <div class="contents">
+            <div class="content-1 progress-report" id="content-1">
+                                <button onclick="searchkid()" class="dropbtn button">View Children's result<span>&#9660;</span></button>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <form method="POST" action="{% url 'search'%}">
+                                        {%csrf_token%}
+                                        <input type="text" id= "child" name= "child" placeholder="Search...." class = "text-box" id="myInput" onkeyup="filterFunction()">
+                                        <input type="submit" name=search" value="search" class="button">
+                                    </form>
+                                    
+                        </div>
+                        
+                        <div class="report">
+                            <hr>
+                            <h4>Here is how {{mychild.user}} performed:</h4>
+                            <table style="width:100%">
+                                <tr>
+                                    <th>Acuracy rate</th>
+                                    <th>Difficult words</th>
+                                    <th>Word Count</th>
+                                    <th>Time</th>
+                                </tr>
+                                
+                                <tr>
+                                    <td>{{childreport.accuracyRate}}</td>
+                                    <td>{{childreport.difficultWords}}</td>
+                                    <td>{{childreport.wordCount}}</td>
+                                    <td>{{childreport.time}}</td>
+                                </tr>
+                               
+                            </table>
+                        </div>              
+            </div>
+            <div class="content-2 word-list" id="content-2">
+                <div id="myDIV" class="header">
+                    <h2>Add</h2>
+                    <form method="POST" action="{% url 'addword'%}">
+                        {%csrf_token%}
+                        <input type="text" id= "childname" name= "childname" placeholder="childname" class = "text-box" >
+                        <input type="text" name="aword" class = "text-box">
+                        <input type="submit"  value="Add word" class="button">
+                    </form>
+                </div>
+                <div id="myDIV" class="header">
+                    <h2>delete word</h2>
+                    <form method="POST" action="{% url 'deleteword'%}">
+                        {%csrf_token%}
+                        <input type="text" id="dword" name="dword" placeholder="Word to delete...." class="text-box">
+                        <input type="submit" name="deleteword" value="deleteword" class="button">
+                    </form>
+                </div>
+                <div id="myDIV" class="header">
+                    <h2>set child limit</h2>
+                    <form method="POST" action="{% url 'setlimit'%}">
+                        {%csrf_token%}
+                        <input type="text" id="childname2" name="childname2" class="text-box">
+                        <input type="number" id="limit" name="limit"  class="text-box">
+                        <input type="submit" class="button">
+                    </form>
+                </div>
+            </div>
+            <div class="content-3 manage-students" id="content-3">
+                <div>
+                    <form method="POST" action="{%url 'createChild' %}">
+                        {%csrf_token%}
+                        <input type="text" id="name" placeholder="Username" name="username" class="text-box" required><br>
+                        <input type="hidden" id="adult_username" name="adult_username" value="{{request.user.username}}">
+                        <input type="password" id="pass" placeholder="Password" name="password" class="text-box" minlength="8" required><br>
+                        <input type="submit" name="createChild" value="Create Child" class="button">
+                    </form>
+                </div>
+                <hr>
+                <h4>This part of the page is to delete a child's account</h4>
+                <button onclick="searchkid()" class="dropbtn button">Delete Child<span>&#9660;</span></button>
+                <div id="myDropdown2" class="dropdown-content child-div">
+                    <form method="POST" action="{%url 'deleteChild'%}">
+                        {%csrf_token%}
+                        <input type="text" placeholder="Search...." class="text-box" id="deletechild" name="deletechild" onkeyup="filterFunction()">
+                        <input type="submit" name="deleteChild" value="Delete Child" class="button">
+                    </form>
+                    <!-- <div id="students">
+                        <a>Ukoha</a>
+                        <a>Okorie</a>
+                        <a>Ibeh</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="{% static 'Fifii/js/adult.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+body {
+  background: url("../img/mobile_background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+}
+.big-logo {
+  margin-top: 2%;
+  width: 78%;
+  transform: rotate(-0.04deg);
+  margin-bottom: 80px;
+}
+.container {
+  text-align: center;
+  margin-top: 110px;
+}
+button {
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(247.58deg, #459e99 27.59%, #45a247 86.37%, #38ef7d 86.37%);
+  border: 3px solid #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0px 10px 50px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  color: white;
+  font-size: 1.6em;
+  width: 128px;
+  padding: 12px;
+  margin-top: 10px;
+}
+a {
+  text-decoration: none;
+}
+h3 {
+  text-align: center;
+  font-size: 1.2em;
+  bottom: 110px;
+  position: relative;
+  display: block;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -110px;
+}
+.button-left {
+  transform: rotate(3deg);
+}
+.button-right {
+  transform: rotate(-3deg);
+}
+.grass {
+  width: 95%;
+  height: 20%;
+  position: fixed;
+  bottom: 0;
+}
+
+@media screen and (min-width: 280px) and (max-device-width: 375px) {
+  .grass {
+    height: 30%;
+    width: 98%;
+  }
+}
+@media screen and (min-width: 280px) and (max-device-width: 320px) {
+  .grass {
+    height: 30%;
+  }
+  body {
+    background-size: 100%;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  button {
+    width: 190px;
+    margin-top: 15px;
+  }
+  .buttons {
+    margin-top: -270px;
+  }
+  .grass {
+    width: 100%;
+    height: 20%;
+  }
+}
+@media screen and (min-width: 280px) {
+  body {
+    background: url("../img/mobile_background.png") no-repeat center center
+      fixed;
+    background-size: cover;
+  }
+}
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  .big-logo {
+    transform: rotate(-0.07deg);
+    width: 50%;
+  }
+  body {
+    background: url("../img/LandingPageindex.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    overflow: hidden;
+  }
+  .grass {
+    display: none;
+  }
+  .buttons {
+    margin-top: -70px;
+  }
+}

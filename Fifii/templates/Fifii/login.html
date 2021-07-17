@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Fifii/css/login.css' %}" rel="stylesheet" type="text/css">
+    <title>Spell with Fifi</title>
+</head>
+<body>
+    <div class="container">
+    <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
+    <p>{{mg}}</p>
+    <form method = "POST" action="{% url 'login'%}">
+        {%csrf_token%}
+        <input type="text" id="fname" placeholder="Username" name="username" class="text-box"><br>
+        <input type="password" id="pass" placeholder="Password" name="password" class="text-box" minlength="8"
+            required><br>
+            <div class="button-block">
+        <input type="submit" name = "login" value="Login" class="button">
+        </div>
+    </form>
+    </div>
+
+</body>
+
+</html>
+<!--
+    <input type="file" id="uploader"><br>
+-->

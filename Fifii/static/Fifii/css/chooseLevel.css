@@ -1,0 +1,73 @@
+body {
+  background: url("../img/X - 1.png") no-repeat center center fixed;
+  background-size: cover;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+}
+.big-logo {
+  margin-top: 2%;
+  width: 72%;
+  transform: rotate(-0.04deg);
+}
+.container {
+  background-color: #fcf2e1;
+  color: #000000;
+  width: 70%;
+  height: 60vh;
+  margin: auto;
+  position: relative;
+  border-radius: 12px;
+}
+.buttons,
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.button-left {
+  transform: rotate(3deg);
+}
+.button-right {
+  transform: rotate(-3deg);
+}
+h3 {
+  font-size: 2em;
+}
+
+.button {
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(247.58deg, #459e99 27.59%, #45a247 86.37%, #38ef7d 86.37%);
+  border: 3px solid #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0px 10px 50px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  color: white;
+  font-size: 1.6em;
+  font-weight: medium;
+  width: 124px;
+  padding: 12px;
+  margin-top: 10px;
+}
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  body {
+    background: url("../img/Landing Page tint.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-size: 16px;
+  }
+  .big-logo {
+    top: 0;
+    width: 25%;
+    margin-left: 3%;
+  }
+  .container {
+    top: 0;
+    height: 68vh;
+    width: 70%;
+  }
+}

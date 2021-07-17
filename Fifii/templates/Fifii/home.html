@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Fifii/css/home.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>Spell with Fifi</title>
+</head>
+
+<body>
+    <div class="container">
+        <img class="big-logo" src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="Logo">
+        <div class="buttons">
+            <a href="{% url 'login' %}"><button type="button" class="button button-left">Login</button></a>
+            <a href="{% url 'chooseLevel' %}"><button type="button" class="button button-right">Play</button></a>
+            <a href="{% url 'signUp' %}"><button type="button" class="button button-left">Sign Up</button></a>
+        </div>
+    </div>
+    <img class="grass"
+        src="{% static 'Fifii/img/flower-grasses-clip-art-flowers-and-grass-png-picture-clipart-26e54bebea5e2091753c00f59433130f 1.png' %}"
+        alt="Grass">
+    <script>
+    </script>
+</body>
+
+</html>

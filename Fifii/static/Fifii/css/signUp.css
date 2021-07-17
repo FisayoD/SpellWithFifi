@@ -1,0 +1,71 @@
+body {
+    background: url("../img/X - 1.png") no-repeat center center fixed;
+    background-size: cover;
+    font-size: 16px;
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top:80px;
+    align-items: center;
+}
+input {
+    text-align: center;
+}
+form {
+    margin-top: -10px;
+}
+.text-box {
+    border: white;
+    border-radius: 24px;
+    width: 230px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    outline: none;
+}
+.button-block {
+    display: flex;
+    justify-content: center;
+}
+.button {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(247.58deg, #459E99 27.59%, #45A247 86.37%, #38EF7D 86.37%);
+    border: 3px solid #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 50px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    color: white;
+    font-size: 1.6em;
+    font-weight: medium;
+    width:124px;
+    padding: 12px;
+    margin-top: 10px;    
+}
+ .big-logo {
+    margin-top: 4%; 
+    width:75%;
+
+} 
+
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+      body {
+          background: url("../img/Landing Page tint.png");
+          background-size: cover;
+          background-repeat: no-repeat;
+          font-size: 16px;
+      }
+      .big-logo {
+          margin-top: 0; 
+          width:45%;
+} 
+form {
+    margin-top: -40px;
+}
+      .text-box {
+          width: 330px;
+      }
+  }

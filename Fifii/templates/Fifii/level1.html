@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'Fifii/css/level1.css' %}" rel="stylesheet" type="text/css">
+    <title>Spell with Fifi</title>
+</head>
+
+<body>
+    <div class= "content">
+    <div class="container">
+    <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
+    <div class="form">
+        <input type="text" id="guess" name="word" class="text-box"><br>
+            <div class="button-block">
+        <button class="button" id="check">Check</button>
+        <button class="button" id="getWord">GetWord</button>
+        <!-- <button class="button" id="newWord">New Word</button> -->
+        </div>
+    </div>
+    </div>
+</div>
+<script src="{% static 'Fifii/js/level1.js' %}"></script>
+</body>
+
+</html>

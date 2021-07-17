@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Fifii/css/chooseLevel.css' %}" type="text/css">
+    <title>Spell with Fifi</title>
+</head>
+<body>
+    <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
+    <div class="container">
+        <div class="content">
+        <h3>Choose Level</h3>
+        <div class="buttons">
+        <a href="{% url 'level1' %}"><button type="button" id="level-1"  class="button button-left">Level 1</button></a>
+        <a href="{% url 'level2' %}"><button type="button" id="level-2" class="button button-right">Level 2</button></a>
+        <a href="{% url 'level3' %}"><button type="button" id="level-3" class="button button-left">Level 3</button></a>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
