@@ -21,11 +21,24 @@
             <a href="{% url 'chooseLevel' %}"><button type="button" class="button button-right">Play</button></a>
             <a href="{% url 'signUp' %}"><button type="button" class="button button-left">Sign Up</button></a>
         </div>
+        <img id="sound-icon" src="{% static 'Fifii/img/sound icon.png' %}" alt="soundControl" onclick="togglePlay()" width="60" height="60">
+        <audio autoplay id="fun-song">
+            <source src="{% static 'Fifii/img/FiFi and the Flowertots - Opening theme ( Fifi et les Floramis ).mp3' %}" type="audio/mp3" alt="Audio fun song" width="30" height="30">
+        </audio>
     </div>
     <img class="grass"
         src="{% static 'Fifii/img/flower-grasses-clip-art-flowers-and-grass-png-picture-clipart-26e54bebea5e2091753c00f59433130f 1.png' %}"
         alt="Grass">
     <script>
+        var audioElement = document.getElementById('fun-song');
+        function togglePlay() {
+                if (audioElement.paused) {
+                    audioElement.play();
+                }
+                else {
+                    audioElement.pause();
+                }
+            }
     </script>
 </body>
 

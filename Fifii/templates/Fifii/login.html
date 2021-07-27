@@ -11,7 +11,7 @@
 <body>
     <div class="container">
     <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
-    <p>{{mg}}</p>
+    <p style="color:red;font-size:20px;font-family:sans-serif;">{{mg}}</p>
     <form method = "POST" action="{% url 'login'%}">
         {%csrf_token%}
         <input type="text" id="fname" placeholder="Username" name="username" class="text-box"><br>

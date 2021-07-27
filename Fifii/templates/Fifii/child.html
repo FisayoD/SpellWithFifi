@@ -11,78 +11,34 @@
 </head>
 
 <body>
+    
     <div class= "content">
+        <a href="{%url 'logout' %}"><button class="logout logg">logout</button></a>
     <div class="container">
     <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
-        <p>Hello {{request.user}}</p>
-    <div id="stopwatch">
-        00:00:00
-    </div>
-    <h3 name= "accuracy_value" id="accuracyValue"></h3>
-    <h3 name="difficult_words" id="difficultWords"></h3>
     <div class="form">
+        <h3 style="color:rgb(69, 68, 68);">Hello {{request.user}}, let's get spelling.</h3>
+        <h3 style="color:rgb(69, 68, 68);" id="stopwatch">
+            00:00:00
+        </h3>
+        <h3 name="accuracy_value" id="accuracyValue"></h3>
+        <h3 name="difficult_words" id="difficultWords"></h3>
         <input type="text" id="guess" name="word" class="text-box"><br>
             <div class="button-block">
-        <button class="button" id="check">Check</button>
-        <button class="button" id="getWord">GetWord</button>
+        <button class="button button-left" id="check">Check</button>
+        <button class="button button-right" id="getWord">GetWord</button>
         </div>
     </div>
     </div>
-    <a href="{%url 'logout' %}"><button class="logout">logout</button></a>
+    
 </div>
-{{ newuser }}
-<script>
-    //PS: all the array words here are meant to be derived from the database o, remember you asked me to test with an array. I even added delete so the word deletes from the array when user spells it
-        //fetch('localhost/db/save')
-        const wordList = "{{ data | safe }}";
-        const wordLimit = "{{ wordlimit | safe }}";
-        const level1 = wordList
-        // const level1 = [
-        //     "A",
-        //     "am",
-        //     "an",
-        //     "and",
-        //     "at",
-        //     "can",
-        //     "come",
-        //     "do",
-        //     "go",
-        //     "he",
-        //     "you",
-        //     "in",
-        //     "is",
-        //     "it",
-        //     "like",
-        //     "me",
-        //     "my",
-        //     "no",
-        //     "see",
-        //     "the"
-        // ];
 
-        // had to remove this cos there is no description from the adult end and it's difficult to write in this style
-        // const level1List = [
-        //     " The word A. Description, The first letter that begins the word apple",
-        //     " The word am. Description, I am a child",
-        //     " The word an. Description, I ate an apple today",
-        //     " The word and. Description, I and my friends love to play",
-        //     " The word at. Description, I learn at the school",
-        //     " The word can. Description, I can clap",
-        //     " The word come. Description, Come here!",
-        //     " The word do. Description, I will do my assignment later",
-        //     " The word go. Description, I want to go home",
-        //     " The word he. Description, He is my father",
-        //     " The word you. Description, Your mum is calling you",
-        //     " The word in. Description, I live in a house",
-        //     " The word is. Description, This is a cup",
-        //     " The word it. Description, It belongs to me",
-        //     " The word like. Description,  I like icecream",
-        //     " The word me. Description, My mum loves me",
-        //     " The word my. Description, I love my friends",
-        //     " The word no. Description, There is no water",
-        //     " The word see. Description, I see with my eyes",
-        //     " The word the. Description, I can see the sky"
-        // ];
+<div id='token' style="visibility:hidden">{%csrf_token%}</div>
+<script>
+        const wordList = {{ data | safe }}
+        const wordLimit = {{ wordlimit | safe }}
+        const level1 = wordList
+       
         const difficultWords = [];
         var checkButton = document.getElementById("check");
         var getWordButton = document.getElementById("getWord");
@@ -90,13 +46,11 @@
         var input = document.getElementById('guess').value.toLowerCase();
         var randomVar;
         var count = 0;
-        var total = wordLimit; // this is supposed to be the word to be spelt specififed in the adult account but I specified one here so you can change it later
+        var total = wordLimit; 
         var sum = 0;
         var score = 0;
         var accuracy = 0;
         var totalAccuracy = accuracy + "%";
-
-        //also console.logged a lot of results for you, so you can monitor what is going on very well from the console. 
 
         getWordButton.disabled = false;
         checkButton.disabled = false;
@@ -106,7 +60,7 @@
             if (count <= total) {
                 startTimer();
                 var input = document.getElementById('guess').value;
-                console.log(level1[randomVar] + 'from getWord');
+                console.log(level1[randomVar] + ' from getWord');
                 speech.text = "Spell" + level1[randomVar];
                 speech.pitch = 1;
                 speech.lang = "en-US";
@@ -115,7 +69,6 @@
                 window.speechSynthesis.speak(speech);
             } else {
                 stopTimer();
-                accuracy = (score / total) * 100;
                 accuracy = (score / total) * 100;
                 document.getElementById('guess').style.display = "none";
                 getWordButton.style.display = "none";
@@ -128,7 +81,21 @@
                     document.getElementById('difficultWords').innerText = "Here are the difficult words: " + difficultWords;
                 }
                 window.speechSynthesis.speak(speech);
+                let form = new FormData()
+                            form.append('accuracy', accuracy)
+                            form.append('WCPM2DP', WCPM2DP)
+                            form.append('decimalseconds2DP', decimalseconds2DP)
+                            form.append('difficultWords', difficultWords.join(','))
+                           
+                        form.append('csrfmiddlewaretoken', document.getElementById('token').children[0].value)
+
+                        fetch('save/', {
+                            method: 'POST',
+                            body: form,
+                        }).then(res => { res.json() }).then(data => console.log(data));
             }
+             
+            
 
         }
 
@@ -140,11 +107,10 @@
                 speech.rate = 0.85;
                 console.log('you are correct')
                 score++;
-                if (randomVar > -1) { ////this line deletes the correct word from the array of words
+                if (randomVar > -1) { 
                     level1.splice(randomVar, 1);
-                    // level1List.splice(randomVar, 1);
                 }
-                console.log(score);
+                console.log("Score point for word gotten correctly = " + score);
             }
             else if (input !== level1[randomVar]) {
                 difficultWords.includes(level1[randomVar]) != true ? difficultWords.push(level1[randomVar]): null;
@@ -153,22 +119,7 @@
                 console.log("You are wrong!")
             }
             window.speechSynthesis.speak(speech);
-            
-            let form = new FormData()
-            form.append('accuracy', accuracy)
-            form.append('WCPM2DP', WCPM2DP)
-            form.append('decimalseconds2DP', decimalseconds2DP)
-            form.append('difficultWords', difficultWords.join(','))
-            form.append('csrfmiddlewaretoken', '{{csrf_token}}')
-
-            fetch('save/', {
-                method: 'POST',
-                body: form,
-            }).then(res => { res.json() }).then(data => console.log(data));
-
-        }
-
-
+        }    
         var speech = new SpeechSynthesisUtterance();
 
         checkButton.addEventListener("click", function () {
@@ -191,7 +142,7 @@
         var totalseconds;
         var decimalseconds; //converts value of the total seconds to decimal.
         var decimalseconds2DP; //convert value of the decimal to 2 decimal places, only this one should be recorded.
-        var WCPM; //full meaning is word count per minute
+        var WCPM; //full meaning is word correct per minute
         var WCPM2DP; //convert value of the WCPM to 2 decimal places, only this one should be recorded.
 
         function startTimer() {
@@ -210,15 +161,10 @@
             WCPM = score / decimalseconds;
             WCPM2DP = WCPM.toFixed(2);
 
-            console.log(totalseconds, WCPM2DP);
-            console.log(decimalseconds2DP);
-
-            /*let send = {
-                accuracy : Number(accuracy),
-                WCPM2DP: Number(WCPM2DP),
-                decimalseconds2DP: Number(decimalseconds2DP),
-                difficultWords:difficultWords.join(',')
-            } */
+            console.log("Total seconds = " + totalseconds);
+            
+            console.log("Value of the WCPM in 2 dp = " + WCPM2DP)
+            console.log("Value of the total minute spent in 2dp= " + decimalseconds2DP);
 
         }
 
@@ -256,16 +202,9 @@
             }
         }
 
-    // var wordlist = {{ data}}
-    /*let testform = new FormData();
-    testform.append('test','helloworld');
-    testform.append('csrfmiddlewaretoken','{{csrf_token}}')
-    fetch('save/', {
-            method: 'POST',
-            body: testform
-        }).then(res => { res.json() }).then(data => console.log(data)); */
+    
 </script>
-<!-- <script src="{% static 'Fifii/js/child.js' %}"></script> -->
+
 </body>
 
 </html>

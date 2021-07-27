@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from json import dumps
 # Create your views here.
-
+#json import dump converts python objects into json string
 # date = datetime.now()
 # rep = report(...., date=datetime.now())
 # rep.save()
@@ -62,6 +62,14 @@ def signUpSuccess(request):
     return render(request, 'Fifii/signUpSuccess.html')
 
 
+def errorpage(request):
+    return render(request, 'Fifii/errorpage.html')
+
+
+def accessdenied(request):
+    return render(request, 'Fifii/accessdenied.html')
+
+
 def level1(request):
     return render(request, 'Fifii/level1.html')
 
@@ -79,19 +87,19 @@ def adult(request):
         user = Adult.objects.get(user=request.user)
         parent = user
         children = Child.objects.all()
-        mychild = children.get(adult=parent)
-        report = Reports.objects.all()
-        childreport = report.get(child=mychild)
-        print(childreport)
-        context = {
-            'mychild': mychild,
-            'childreport': childreport
-        }
+        if Child.objects.filter(adult=parent):
+            mychild = children.filter(adult=parent)
+            report = Reports.objects.all()
+            childreport = Reports.objects.filter(child=mychild)
+            
+            context = {
+                'mychild': mychild,
+                'childreport': childreport
+            }
         return render(request, 'Fifii/adult.html')
     except Adult.DoesNotExist:
         mg = "You are not allowed to view this page!"
-        return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
-
+        return render(request, 'Fifii/accessdenied.html', {'mg': mg})
 
 def chooseLevel(request):
     return render(request, 'Fifii/chooseLevel.html')
@@ -106,7 +114,7 @@ def child(request):
         wordlimit = int(child_user.wordlimit)
         wordList = []
         for items in quiz_words:
-            wordList.append(str(items))
+            wordList.append(str(items))  
 
         context = {
             'newuser': child_user,
@@ -117,22 +125,24 @@ def child(request):
         return render(request, 'Fifii/child.html', context)
     except Child.DoesNotExist:
         mg = "You are not allowed to view this page!"
-        return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+        return render(request, 'Fifii/accessdenied.html', {'mg': mg})
 
 
 def save(request):
+    date = datetime.now()
     if request.method == 'POST':
+        print(request.POST)
         myuser = request.user
-        mychild = Child.objects.get(id=6)
-        #temp = request.POST.get('test')
+        mychild = Child.objects.get(user=myuser)
+        # temp = request.POST.get('test')
         accuracy = request.POST.get('accuracy')
         WCPM2DP = request.POST.get('WCPM2DP')
         decimalseconds2DP = request.POST.get('decimalseconds2DP')
         difficult_words = request.POST.get('difficultWords')
 
-        myreports = Reports.objects.all()
-        myreports = Reports(child=mychild, accuracyRate=accuracy, difficultWords=difficult_words,
-                            wordCount=WCPM2DP, time=decimalseconds2DP)
+        #myreports = Reports.objects.all()
+        myreports = Reports.objects.create(child=mychild, accuracyRate=accuracy, difficultWords=difficult_words,
+                            wordCount=WCPM2DP, time=decimalseconds2DP,datetime=date)
         myreports.save()
 
         print(myreports)
@@ -148,15 +158,18 @@ def createChild(request):
         username = request.POST['username']
         password = request.POST['password']
         adult = request.POST['adult_username']
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        person = User.objects.get(username=username)
-        parent = User.objects.get(username=adult)
-        pa = Adult.objects.get(user=parent)
-        kid = Child(user=person, adult=pa)
-        kid.save()
-        mg = 'Child account created!'
-        return render(request, 'Fifii/adult.html', {'mg': mg})
+        if not User.objects.filter(username=username):
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            person = User.objects.get(username=username)
+            parent = User.objects.get(username=adult)
+            pa = Adult.objects.get(user=parent)
+            kid = Child(user=person, adult=pa)
+            kid.save()
+            mg = 'Child account created!'
+        else:
+            mg = 'Child account already exist !'
+        return render(request, 'Fifii/errorpage.html', {'mg': mg})
     else:
         return redirect('adult')
 
@@ -169,13 +182,13 @@ def search(request):
             if kid is not None:
                 ch = Child.objects.get(user=kid)
                 reports = Reports.objects.filter(child=ch)
-                return render(request, 'Fifii/adult.html', {'reports': reports})
+                return render(request, 'Fifii/adult.html', {'childreport': reports, 'mychild': ch})
             else:
-                mg = 'Child doesnt exist!'
-                return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+                mg = 'Child does not exist!'
+                return render(request, 'Fifii/errorpage.html', {'mg': mg})
         else:
-            mg = 'Child doesnt exist!'
-            return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+            mg = 'Child does not exist!'
+            return render(request, 'Fifii/errorpage.html', {'mg': mg})
     else:
         return render(request, 'Fifii/adult.html')
 
@@ -183,9 +196,12 @@ def search(request):
 def deleteChild(request):
     if request.method == 'POST':
         child = request.POST['deletechild']
-        User.objects.filter(username=child).delete()
-        mg = 'child deleted'
-        return render(request, 'Fifii/adult.html', {'mg': mg})
+        if User.objects.filter(username=child):
+            User.objects.filter(username=child).delete()
+            mg = 'The child account has been deleted'
+        else:
+            mg = 'The child account does not exist!'
+        return render(request, 'Fifii/errorpage.html', {'mg': mg})
     else:
         return render(request, 'Fifii/adult.html')
 
@@ -201,12 +217,14 @@ def addWord(request):
                 word = request.POST['aword']
                 addedword = SetQuiz(child=ch, word=word)
                 addedword.save()
+                mg = "Done!"
+                return render(request, 'Fifii/errorpage.html', {'mg': mg})
             except ch.DoesNotExist:
-                mg = "child does not exist!"
-                return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+                mg = "This child account does not exist!"
+                return render(request, 'Fifii/errorpage.html', {'mg': mg})
         except User.DoesNotExist:
-            mg = "child does not exist!"
-            return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+            mg = "This child account does not exist!"
+            return render(request, 'Fifii/errorpage.html', {'mg': mg})
     else:
         return render(request, 'Fifii/adult.html')
 
@@ -218,23 +236,27 @@ def setlimit(request):
             try:
                 limit = request.POST['limit']
                 Child.objects.filter(user=child).update(wordlimit=limit)
-                mg = 'word limit recorded!'
-                return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+                mg = 'Word limit recorded!'
+                return render(request, 'Fifii/errorpage.html', {'mg': mg})
             except child.DoesNotExist:
                 mg = 'child does not exist!'
-                return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+                return render(request, 'Fifii/errorpage.html', {'mg': mg})
         except User.DoesNotExist:
-            mg = "child does not exist!"
-            return render(request, 'Fifii/signUpSuccess.html', {'mg': mg})
+            mg = "This child account does not exist!"
+            return render(request, 'Fifii/errorpage.html', {'mg': mg})
     else:
         return render(request, 'Fifii/adult.html')
 
 
 def deleteWord(request):
     if request.method == 'POST':
-        SetQuiz.objects.filter(word=request.POST['dword']).delete()
-        mg = 'word deleted'
-        return render(request, 'Fifii/adult.html', {'mg': mg})
+        print(request.POST)
+        if SetQuiz.objects.filter(word=request.POST['dword']):
+            SetQuiz.objects.filter(word=request.POST['dword']).delete()
+            mg = 'The word has been deleted'
+        else:
+            mg = 'The word does not exist!'
+        return render(request, 'Fifii/errorpage.html', {'mg': mg})
     else:
         return render(request, 'Fifii/adult.html')
 

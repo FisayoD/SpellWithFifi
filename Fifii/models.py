@@ -22,12 +22,15 @@ class Child(models.Model):
 
 
 class Reports(models.Model):
+    datetime = models.DateTimeField(null=True, blank=True)
     child = models.ForeignKey(Child, on_delete=models.CASCADE, null=False)
     accuracyRate = models.CharField(max_length=200)
     difficultWords = models.CharField(max_length=200)
     wordCount = models.CharField(max_length=200)
     time = models.CharField(max_length=200)
-
+    WCPM = models.DecimalField(
+        max_digits=200, decimal_places=2, null=True, blank=True)
+# used to return name for an object as it is written in string format in the database.
     def __str__(self):
         return 'accuracy score = ' + str(self.accuracyRate) + 'Difficult words = ' + str(self.difficultWords)
 

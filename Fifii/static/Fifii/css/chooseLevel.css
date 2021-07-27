@@ -9,11 +9,17 @@ body {
   width: 72%;
   transform: rotate(-0.04deg);
 }
+.back {
+    margin-left: 6%;
+    margin-top:6%;
+   
+}
+
 .container {
   background-color: #fcf2e1;
   color: #000000;
   width: 70%;
-  height: 60vh;
+  height: 62vh;
   margin: auto;
   position: relative;
   border-radius: 12px;
@@ -53,21 +59,26 @@ h3 {
   padding: 12px;
   margin-top: 10px;
 }
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+@media screen and (min-device-width: 760px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
   body {
     background: url("../img/Landing Page tint.png");
     background-size: cover;
     background-repeat: no-repeat;
     font-size: 16px;
+    overflow: hidden;
   }
   .big-logo {
     top: 0;
-    width: 25%;
+    width: 30%;
     margin-left: 3%;
   }
+  .back {
+    margin-left: 6%;
+    
+}
   .container {
     top: 0;
-    height: 68vh;
-    width: 70%;
+    height: 60vh;
+    width: 50%;
   }
 }

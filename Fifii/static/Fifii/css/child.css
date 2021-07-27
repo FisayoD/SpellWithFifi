@@ -13,7 +13,22 @@ body {
   border-radius: 12px;
 } */
 .content {
-  margin-top: 120px;
+  margin-top: 90px;
+}
+.logout {
+    margin-left: 80%;
+    margin-top: 20px;
+    font-family:sans-serif;
+    font-size: 20px;
+}
+.logg {
+    border-radius: 50%;
+    padding: 23px;
+
+}
+h3{
+    font-family: sans-serif;
+    font-size: 22px;
 }
 .container {
     position: relative;
@@ -22,8 +37,8 @@ body {
     align-items: center;
     background-color: #fcf2e1;
     color: #000000;
-    width: 75%;
-    height: 40vh;
+    width: 76%;
+    height: 55vh;
     margin: auto;
     position: relative;
     border-radius: 12px;
@@ -32,20 +47,23 @@ input {
     text-align: center;
 }
 .form {
-    margin-top: 25px;
+    text-align: center;
 }
 .text-box {
     border: white;
     border-radius: 24px;
     width: 150px;
     padding: 15px;
-    margin-top: 10px;
+    margin-top: -20px;
     margin-bottom: 15px;
     outline: none;
 }
 .button-block {
     display: flex;
     justify-content: center;
+}
+.button-left {
+    margin-right: 4%;
 }
 .button {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(247.58deg, #459E99 27.59%, #45A247 86.37%, #38EF7D 86.37%);
@@ -58,14 +76,21 @@ input {
     font-weight: medium;
     width:124px;
     padding: 12px;
-    margin-top: 10px;    
+        
 }
  .big-logo {
     margin-top: 4%; 
     width:75%;
 
 } 
-
+@media screen 
+  and (min-device-width: 740px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+      .text-box {
+          width: 300px;
+      }
+  }
 @media screen 
   and (min-device-width: 1200px) 
   and (max-device-width: 1600px) 
@@ -87,7 +112,7 @@ input {
           display: block;
       } */
       .text-box {
-          width: 330px;
+          width: 400px;
       }
       .container {
     position: relative;
@@ -97,7 +122,7 @@ input {
     background-color: #fcf2e1;
     color: #000000;
     width: 60%;
-    height: 60vh;
+    height: 70vh;
     margin: auto;
     position: relative;
     border-radius: 12px;

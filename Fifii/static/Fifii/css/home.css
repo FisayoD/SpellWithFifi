@@ -50,6 +50,11 @@ h3 {
   align-items: center;
   margin-top: -110px;
 }
+#sound-icon {
+  margin-top: -140px;
+  margin-left: 180px;
+
+}
 .button-left {
   transform: rotate(3deg);
 }
@@ -83,8 +88,13 @@ h3 {
     width: 190px;
     margin-top: 15px;
   }
+  #sound-icon {
+  
+  margin-left: 250px;
+
+}
   .buttons {
-    margin-top: -270px;
+    margin-top: -120px;
   }
   .grass {
     width: 100%;

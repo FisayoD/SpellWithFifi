@@ -11,15 +11,18 @@
 </head>
 
 <body>
+    <a href="{% url 'chooseLevel' %}"><img src="{% static 'Fifii/img/back.png' %}" alt="back icon" class="back" width="60" height="60"></a>
     <div class= "content">
     <div class="container">
     <img src="{% static 'Fifii/img/logo 2 forms.png' %}" alt="" class="big-logo">
-    <div class="form">
-        <input type="text" id="guess" name="word" class="text-box"><br>
-        <div class="button-block">
-            <button class="button" id="check">Check</button>
-            <button class="button" id="getWord">GetWord</button>
-            <button class="button" id="newWord">New Word</button>
+    
+<div class="form">
+    <h3 name="accuracy_value" id="accuracyValue"></h3>
+    <h3 name="difficult_words" id="difficultWords"></h3>
+    <input type="text" id="guess" name="word" class="text-box"><br>
+    <div class="button-block">
+        <button class="button button-left" id="check">Check</button>
+        <button class="button button-right" id="getWord">GetWord</button>
         </div>
     </div>
     </div>

@@ -15,6 +15,14 @@ body {
 .content {
   margin-top: 120px;
 }
+.back {
+    margin-left: 10%;
+    margin-top: 2%;
+}
+h3{
+    font-family: sans-serif;
+    font-size: 22px;
+}
 .container {
     position: relative;
     display: flex;
@@ -33,19 +41,23 @@ input {
 }
 .form {
     margin-top: 25px;
+    text-align: center;
 }
 .text-box {
     border: white;
     border-radius: 24px;
     width: 150px;
     padding: 15px;
-    margin-top: 10px;
+    margin-top: -20px;
     margin-bottom: 15px;
     outline: none;
 }
 .button-block {
     display: flex;
     justify-content: center;
+}
+.button-left {
+    margin-right: 4%;
 }
 .button {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(247.58deg, #459E99 27.59%, #45A247 86.37%, #38EF7D 86.37%);
@@ -58,7 +70,7 @@ input {
     font-weight: medium;
     width:124px;
     padding: 12px;
-    margin-top: 10px;    
+        
 }
  .big-logo {
     margin-top: 4%; 
