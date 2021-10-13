@@ -24,17 +24,20 @@ body {
 .container {
     background-color: #FCF2E1;
     color: #000000;
-    width:90%;
-    height: 78vh;
+    width:85%;
+    height: 82vh;
     margin: auto;
     position: relative;
     border-radius: 12px;
 }
-.lower{
-    color: black;
-}
+/* .limit {
+    margin-bottom: 20px;
+} */
 .bar-1{
     padding-left: 10px;
+}
+.top{
+    margin-top: 18px;
 }
 .bar-3{
     padding-right: 10px;
@@ -63,16 +66,16 @@ body {
     box-shadow: 0px 10px 50px 2px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     color: white;
-    font-size: 1.6em;
+    font-size: 1.2em;
     font-weight: medium;
-    width: 180px;
+    width: 150px;
     padding: 2px;
 }
 .text-box {
     border: white;
     border-radius: 15px;
     width: 200px;
-    padding: 7px;
+    padding: 5px;
     outline: none;
     border-bottom: 5px solid #ddd;
 }
@@ -112,6 +115,29 @@ span {
 .show {
     display: block;
 }
+
+@media screen 
+  and (min-device-width: 260px) 
+  and (max-device-width: 400px) 
+   {
+       .button {
+           font-size: 0.9em;
+           font-weight: medium;
+           width: 130px;
+           padding: 1px;
+       }
+    .text-box {
+        width: 100px;
+        padding: 4px;
+}
+.container, .report {
+    height: 82vh;
+    width:95vw;
+}
+hr{
+    width: 82%;
+}
+   }
 
 
 
@@ -178,9 +204,9 @@ span {
     border-bottom: 3px solid white;
 
 }
-.button {
+/* .button {
     width: 30vw;
-}
+} */
 .content-1, .content-2, .content-3 {
     display: none;
     margin-top: 3vh;

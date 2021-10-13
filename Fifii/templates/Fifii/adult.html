@@ -35,7 +35,7 @@
         {{mg}}
         <div class="contents">
             <div class="content-1 progress-report" id="content-1">
-                                <button onclick="searchkid()" class="dropbtn button">View Children's result<span>&#9660;</span></button>
+                                <button onclick="searchkid()" class="dropbtn button top">View Children's result<span>&#9660;</span></button>
                                 <div id="myDropdown" class="dropdown-content">
                                     <form method="POST" action="{% url 'search'%}">
                                         {%csrf_token%}
@@ -48,7 +48,7 @@
                         <div class="report">
                             <hr>
                             <h4>Here is how {{mychild.user}} performed:</h4>
-                            <table style="width:100%">
+                            <table style="width:92%">
                                 <tr>
                                     <th>Date</th>
                                     <th>Acuracy rate</th>
@@ -70,8 +70,9 @@
             </div>
             <div class="content-2 word-list" id="content-2">
                 <div id="myDIV" class="header">
-                    <p class="lower">Please type in the word in lowercase.</p>
+                    
                     <h2>Add</h2>
+                    <p class="lower">Please type in the word in lowercase.</p>
                     <form method="POST" action="{% url 'addword'%}">
                         {%csrf_token%}
                         <input type="text" id= "childname" name= "childname" placeholder="childname" class = "text-box" >
@@ -87,7 +88,7 @@
                         <input type="submit" name="deleteword" value="deleteword" class="button">
                     </form>
                 </div>
-                <div id="myDIV" class="header">
+                <div id="myDIV" class="header limit">
                     <h2>set child limit</h2>
                     <form method="POST" action="{% url 'setlimit'%}">
                         {%csrf_token%}
@@ -98,7 +99,7 @@
                 </div>
             </div>
             <div class="content-3 manage-students" id="content-3">
-                <div>
+                <div class="top">
                     <form method="POST" action="{%url 'createChild' %}">
                         {%csrf_token%}
                         <input type="text" id="name" placeholder="Username" name="username" class="text-box" required><br>
