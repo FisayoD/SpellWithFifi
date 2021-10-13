@@ -70,6 +70,7 @@
             </div>
             <div class="content-2 word-list" id="content-2">
                 <div id="myDIV" class="header">
+                    <p class="lower">Please type in the word in lowercase.</p>
                     <h2>Add</h2>
                     <form method="POST" action="{% url 'addword'%}">
                         {%csrf_token%}

@@ -64,7 +64,7 @@ checkButton.disabled = false;
 var callWord = (randomVar) => {
      
     if (count <= total) {
-        var input = document.getElementById('guess').value;
+        var input = document.getElementById('guess').value.toLowerCase();
         console.log(level1[randomVar] + 'from getWord');
         speech.text = "Spell" + level1List[randomVar];
         speech.pitch = 1;
@@ -91,7 +91,7 @@ var callWord = (randomVar) => {
 }
 
 var validateInput = (randomVar) => {
-        var input = document.getElementById('guess').value;
+        var input = document.getElementById('guess').value.toLowerCase();
         console.log(randomVar + "from check button")
         if (input === level1[randomVar]) {
             speech.text = "You are correct!";

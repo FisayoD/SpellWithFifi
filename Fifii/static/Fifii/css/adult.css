@@ -30,6 +30,9 @@ body {
     position: relative;
     border-radius: 12px;
 }
+.lower{
+    color: black;
+}
 .bar-1{
     padding-left: 10px;
 }

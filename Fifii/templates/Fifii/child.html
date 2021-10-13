@@ -59,7 +59,7 @@
 
             if (count <= total) {
                 startTimer();
-                var input = document.getElementById('guess').value;
+                var input = document.getElementById('guess').value.toLowerCase();
                 console.log(level1[randomVar] + ' from getWord');
                 speech.text = "Spell" + level1[randomVar];
                 speech.pitch = 1;
